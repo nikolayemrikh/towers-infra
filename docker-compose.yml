@@ -37,4 +37,4 @@ services:
 
 networks:
   towers-network:
-    external: true
+    driver: bridge
