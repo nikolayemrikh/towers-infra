@@ -23,5 +23,5 @@ jobs:
             mkdir -p ~/deploy
             cd ~/deploy
             git pull origin main
-            docker compose pull
-            docker compose up -d --force-recreate
+            docker-compose pull
+            docker-compose up -d --force-recreate
