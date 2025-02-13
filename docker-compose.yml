@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  nginx-proxy:
+    image: nginx
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done'"
+
+  # towers-backend:
+  #   image: ghcr.io/redishko/towers-backend:latest
+  #   restart: always
+
+  # towers-app:
+  #   image: ghcr.io/redishko/towers-app:latest
+  #   restart: always
