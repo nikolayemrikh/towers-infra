@@ -21,6 +21,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "."
           target: "~/towers"
+          overwrite: true
 
       - name: SSH to Server and Deploy
         uses: appleboy/ssh-action@v0.1.10
