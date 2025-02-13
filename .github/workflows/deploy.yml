@@ -33,5 +33,5 @@ jobs:
           script: |
             mkdir -p ~/towers
             cd ~/towers
-            docker-compose pull
-            docker-compose up -d --force-recreate
+            docker compose pull
+            docker compose up -d --force-recreate
