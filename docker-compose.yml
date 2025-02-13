@@ -28,6 +28,7 @@ services:
   #   image: ghcr.io/redishko/towers-backend:latest
   #   restart: always
   towers-app:
+    name: towers-app
     image: redishko/towers-app:latest
     restart: always
     ports:
