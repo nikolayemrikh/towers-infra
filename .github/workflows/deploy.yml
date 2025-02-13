@@ -36,6 +36,6 @@ jobs:
           script: |
             mkdir -p ~/towers
             cd ~/towers
-            echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u $DOCKER_USERNAME --password-stdin
+            # echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u $DOCKER_USERNAME --password-stdin
             docker compose pull
             docker compose up -d --force-recreate
