@@ -24,6 +24,7 @@ services:
     networks:
       - towers-network
 
+
   # towers-backend:
   #   image: ghcr.io/redishko/towers-backend:latest
   #   restart: always
