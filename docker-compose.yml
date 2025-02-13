@@ -36,5 +36,5 @@ services:
       - towers-network
 
 networks:
-  proxy:
+  towers-network:
     external: true
