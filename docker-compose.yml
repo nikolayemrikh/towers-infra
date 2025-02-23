@@ -25,9 +25,14 @@ services:
       - towers-network
 
 
-  # towers-backend:
-  #   image: ghcr.io/redishko/towers-backend:latest
-  #   restart: always
+  towers-backend:
+    image: ghcr.io/redishko/towers-backend:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - towers-network
+
   towers-app:
     image: redishko/towers-app:latest
     restart: always
