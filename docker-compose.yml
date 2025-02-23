@@ -32,6 +32,8 @@ services:
       - "3000:3000"
     networks:
       - towers-network
+    environment:
+      - ALLOWED_ORIGIN=https://app.magic-towers.xyz
 
   towers-app:
     image: redishko/towers-app:latest
