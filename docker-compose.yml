@@ -26,7 +26,7 @@ services:
 
 
   towers-backend:
-    image: ghcr.io/redishko/towers-backend:latest
+    image: redishko/towers-backend:latest
     restart: always
     ports:
       - "3000:3000"
