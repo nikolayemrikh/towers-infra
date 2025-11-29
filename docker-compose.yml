@@ -13,6 +13,42 @@ services:
     networks:
       - towers-network
 
+  peerjs:
+    image: node:18
+    container_name: peerjs
+    working_dir: /app
+    volumes:
+      - ./peerjs:/app
+    command: ["node", "server.js"]
+    expose:
+      - "9000"
+    restart: always
+
+  turn:
+    image: instrumentisto/coturn
+    container_name: turn
+    restart: always
+    environment:
+      - TURN_USERNAME=admin
+      - TURN_PASSWORD=yourStrongPassword
+      - TURN_REALM=yourdomain.com
+    ports:
+      - "3478:3478/udp"
+      - "3478:3478/tcp"
+      - "5349:5349/tcp"
+      - "49152-49200:49152-49200/udp"
+    command:
+      - "--no-cli"
+      - "--log-file=stdout"
+      - "--fingerprint"
+      - "--lt-cred-mech"
+      - "--realm=yourdomain.com"
+      - "--server-name=yourdomain.com"
+      - "--user=admin:yourStrongPassword"
+      - "--min-port=49152"
+      - "--max-port=49200"
+      - "--no-multicast-peers"
+
 
   certbot:
     image: certbot/certbot
@@ -24,24 +60,23 @@ services:
     networks:
       - towers-network
 
+  # towers-backend:
+  #   image: redishko/towers-backend:latest
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - towers-network
+  #   environment:
+  #     - ALLOWED_ORIGIN=https://app.magic-towers.xyz
 
-  towers-backend:
-    image: redishko/towers-backend:latest
-    restart: always
-    ports:
-      - "3000:3000"
-    networks:
-      - towers-network
-    environment:
-      - ALLOWED_ORIGIN=https://app.magic-towers.xyz
-
-  towers-app:
-    image: redishko/towers-app:latest
-    restart: always
-    ports:
-      - "8080:8080"
-    networks:
-      - towers-network
+  # towers-app:
+  #   image: redishko/towers-app:latest
+  #   restart: always
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - towers-network
 
 networks:
   towers-network:
