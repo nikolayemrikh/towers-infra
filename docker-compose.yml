@@ -19,6 +19,8 @@ services:
     command: ["--port", "9000", "--path", "/"]
     ports:
       - "9000:9000"
+    networks:
+      - towers-network
 
   turn:
     image: instrumentisto/coturn
@@ -44,6 +46,8 @@ services:
       - "--min-port=49152"
       - "--max-port=49200"
       - "--no-multicast-peers"
+    networks:
+      - towers-network
 
 
   certbot:
