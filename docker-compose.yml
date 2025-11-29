@@ -70,13 +70,13 @@ services:
   #   environment:
   #     - ALLOWED_ORIGIN=https://app.magic-towers.xyz
 
-  # towers-app:
-  #   image: redishko/towers-app:latest
-  #   restart: always
-  #   ports:
-  #     - "8080:8080"
-  #   networks:
-  #     - towers-network
+  calls-app:
+    image: redishko/calls-app:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - towers-network
 
 networks:
   towers-network:
