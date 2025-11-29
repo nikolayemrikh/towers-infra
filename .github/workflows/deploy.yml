@@ -19,7 +19,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml,nginx.conf,peerjs/server.js"
+          source: "docker-compose.yml,nginx.conf"
           target: "~/towers"
           overwrite: true
 
