@@ -15,6 +15,7 @@ services:
 
   peerjs:
     image: peerjs/peerjs-server
+    container_name: peerjs
     command: ["--port", "9000", "--path", "/"]
     ports:
       - "9000:9000"
