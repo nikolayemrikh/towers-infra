@@ -14,15 +14,10 @@ services:
       - towers-network
 
   peerjs:
-    image: node:18
-    container_name: peerjs
-    working_dir: /app
-    volumes:
-      - ./peerjs:/app
-    command: ["node", "server.js"]
-    expose:
-      - "9000"
-    restart: always
+    image: peerjs/peerjs-server
+    command: ["--port", "9000", "--path", "/"]
+    ports:
+      - "9000:9000"
 
   turn:
     image: instrumentisto/coturn
@@ -31,7 +26,7 @@ services:
     environment:
       - TURN_USERNAME=admin
       - TURN_PASSWORD=yourStrongPassword
-      - TURN_REALM=yourdomain.com
+      - TURN_REALM=magic-towers.xyz
     ports:
       - "3478:3478/udp"
       - "3478:3478/tcp"
@@ -42,8 +37,8 @@ services:
       - "--log-file=stdout"
       - "--fingerprint"
       - "--lt-cred-mech"
-      - "--realm=yourdomain.com"
-      - "--server-name=yourdomain.com"
+      - "--realm=magic-towers.xyz"
+      - "--server-name=magic-towers.xyz"
       - "--user=admin:yourStrongPassword"
       - "--min-port=49152"
       - "--max-port=49200"
