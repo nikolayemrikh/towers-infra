@@ -72,6 +72,7 @@ services:
 
   calls-app:
     image: redishko/calls-app:latest
+    container_name: calls-app
     restart: always
     ports:
       - "8080:8080"
