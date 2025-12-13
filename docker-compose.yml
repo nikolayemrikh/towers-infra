@@ -60,15 +60,15 @@ services:
     networks:
       - towers-network
 
-  # towers-backend:
-  #   image: redishko/towers-backend:latest
-  #   restart: always
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - towers-network
-  #   environment:
-  #     - ALLOWED_ORIGIN=https://app.magic-towers.xyz
+  calls-telegram-bot:
+    image: redishko/calls-telegram-bot:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - towers-network
+    # environment:
+    #   - ALLOWED_ORIGIN=https://app.magic-towers.xyz
 
   calls-app:
     image: redishko/calls-app:latest
