@@ -63,16 +63,16 @@ services:
     networks:
       - towers-network
 
-  calls-telegram-bot:
-    image: redishko/calls-telegram-bot:latest
-    container_name: calls-telegram-bot
-    restart: always
-    ports:
-      - "3000:3000"
-    networks:
-      - towers-network
-    # environment:
-    #   - ALLOWED_ORIGIN=https://app.mag-towers.xyz
+  # calls-telegram-bot:
+  #   image: redishko/calls-telegram-bot:latest
+  #   container_name: calls-telegram-bot
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - towers-network
+  #   # environment:
+  #   #   - ALLOWED_ORIGIN=https://app.mag-towers.xyz
 
   calls-app:
     image: redishko/calls-app:latest
