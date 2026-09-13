@@ -23,13 +23,15 @@ services:
       - towers-network
 
   turn:
-    image: instrumentisto/coturn
+    image: coturn/coturn:4.18
     container_name: turn
     restart: always
     network_mode: host
+    user: root
     volumes:
       - ./certbot/conf:/etc/letsencrypt:ro
     command:
+      - "-n" # ignore any turnserver.conf shipped in the image
       - "--no-cli"
       - "--log-file=stdout"
       - "--fingerprint"
@@ -43,7 +45,6 @@ services:
       - "--min-port=49152"
       - "--max-port=49200"
       - "--no-multicast-peers"
-      # - "--no-loopback-peers"
       - "--denied-peer-ip=0.0.0.0-0.255.255.255"
       - "--denied-peer-ip=10.0.0.0-10.255.255.255"
       - "--denied-peer-ip=100.64.0.0-100.127.255.255"
