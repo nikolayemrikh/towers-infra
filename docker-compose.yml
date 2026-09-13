@@ -26,17 +26,9 @@ services:
     image: instrumentisto/coturn
     container_name: turn
     restart: always
+    network_mode: host
     volumes:
       - ./certbot/conf:/etc/letsencrypt:ro
-    environment:
-      - TURN_USERNAME=admin
-      - TURN_PASSWORD=yourStrongPassword
-      - TURN_REALM=mag-towers.xyz
-    ports:
-      - "3478:3478/udp"
-      - "3478:3478/tcp"
-      - "5349:5349/tcp"
-      - "49152-49200:49152-49200/udp"
     command:
       - "--no-cli"
       - "--log-file=stdout"
@@ -44,14 +36,26 @@ services:
       - "--lt-cred-mech"
       - "--realm=mag-towers.xyz"
       - "--server-name=mag-towers.xyz"
-      - "--user=admin:yourStrongPassword"
+      - "--user=${TURN_USERNAME}:${TURN_PASSWORD}"
+      - "--external-ip=${SERVER_IP}"
+      - "--listening-port=3478"
+      - "--tls-listening-port=5349"
       - "--min-port=49152"
       - "--max-port=49200"
       - "--no-multicast-peers"
+      - "--no-loopback-peers"
+      - "--denied-peer-ip=0.0.0.0-0.255.255.255"
+      - "--denied-peer-ip=10.0.0.0-10.255.255.255"
+      - "--denied-peer-ip=100.64.0.0-100.127.255.255"
+      - "--denied-peer-ip=127.0.0.0-127.255.255.255"
+      - "--denied-peer-ip=169.254.0.0-169.254.255.255"
+      - "--denied-peer-ip=172.16.0.0-172.31.255.255"
+      - "--denied-peer-ip=192.168.0.0-192.168.255.255"
+      - "--denied-peer-ip=::1"
+      - "--denied-peer-ip=fc00::-fdff:ffff:ffff:ffff:ffff:ffff:ffff:ffff"
+      - "--denied-peer-ip=fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff"
       - "--cert=/etc/letsencrypt/live/turn.mag-towers.xyz/fullchain.pem"
       - "--pkey=/etc/letsencrypt/live/turn.mag-towers.xyz/privkey.pem"
-    networks:
-      - towers-network
 
   certbot:
     image: certbot/certbot
