@@ -30,6 +30,8 @@ services:
     user: root
     volumes:
       - ./certbot/conf:/etc/letsencrypt:ro
+    tmpfs:
+      - /var/lib/coturn
     command:
       - "-n" # ignore any turnserver.conf shipped in the image
       - "--no-cli"
@@ -38,8 +40,8 @@ services:
       - "--lt-cred-mech"
       - "--realm=mag-towers.xyz"
       - "--server-name=mag-towers.xyz"
-      - "--user=${TURN_USERNAME}:${TURN_PASSWORD}"
-      - "--external-ip=${SERVER_IP}"
+      - "--user=${TURN_USERNAME:?TURN_USERNAME is not set}:${TURN_PASSWORD:?TURN_PASSWORD is not set}"
+      - "--external-ip=${SERVER_IP:?SERVER_IP is not set}"
       - "--listening-port=3478"
       - "--tls-listening-port=5349"
       - "--min-port=49152"

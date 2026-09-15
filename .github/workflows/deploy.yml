@@ -41,3 +41,5 @@ jobs:
             # echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u $DOCKER_USERNAME --password-stdin
             docker compose pull
             docker compose up -d --force-recreate
+            # coturn and nginx don't pick up certificates renewed by certbot on their own
+            (crontab -l 2>/dev/null | grep -v '# towers-cert-reload'; echo '0 4 * * * docker kill -s USR2 turn >/dev/null 2>&1; docker exec nginx-proxy nginx -s reload >/dev/null 2>&1 # towers-cert-reload') | crontab -
