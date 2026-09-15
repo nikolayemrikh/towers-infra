@@ -34,8 +34,9 @@ services:
       - /var/lib/coturn
     command:
       - "-n" # ignore any turnserver.conf shipped in the image
-      - "--no-cli"
       - "--log-file=stdout"
+      - "--verbose" # TODO: remove once UDP is confirmed working
+      - "--stateless-nonce=false"
       - "--fingerprint"
       - "--lt-cred-mech"
       - "--realm=mag-towers.xyz"
