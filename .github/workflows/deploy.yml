@@ -37,7 +37,7 @@ jobs:
             mkdir -p ~/towers
             cd ~/towers
             umask 077
-            printf 'TURN_USERNAME=%s\nTURN_PASSWORD=%s\nSERVER_IP=%s\n' '${{ secrets.TURN_USERNAME }}' '${{ secrets.TURN_PASSWORD }}' '${{ secrets.SERVER_IP }}' > .env
+            printf 'TURN_USERNAME=%s\nTURN_PASSWORD=%s\nSERVER_IP=%s\nSERVER_PRIVATE_IP=%s\n' '${{ secrets.TURN_USERNAME }}' '${{ secrets.TURN_PASSWORD }}' '${{ secrets.SERVER_IP }}' '${{ secrets.SERVER_PRIVATE_IP }}' > .env
             # echo ${{ secrets.DOCKER_ACCESS_TOKEN }} | docker login -u $DOCKER_USERNAME --password-stdin
             docker compose pull
             docker compose up -d --force-recreate
